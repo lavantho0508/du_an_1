@@ -12,18 +12,16 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/F:/Du_An_1/DuAn1_QuanLyBanMayTinhHSoft-main/1_DAL_HSoft/src/IServices/INHAN_VIEN_Service.java</file>
-            <file>file:/F:/Du_An_1/DuAn1_QuanLyBanMayTinhHSoft-main/1_DAL_HSoft/src/Sevices/Product_Variant_Service.java</file>
-            <file>file:/F:/Du_An_1/DuAn1_QuanLyBanMayTinhHSoft-main/1_DAL_HSoft/src/Sevices/Product_Service.java</file>
-            <file>file:/F:/Du_An_1/DuAn1_QuanLyBanMayTinhHSoft-main/1_DAL_HSoft/src/Helper/JdbcHelper.java</file>
-            <file>file:/F:/Du_An_1/DuAn1_QuanLyBanMayTinhHSoft-main/1_DAL_HSoft/src/Sevices/NHAN_VIEN_Service.java</file>
-            <file>file:/F:/Du_An_1/DuAn1_QuanLyBanMayTinhHSoft-main/1_DAL_HSoft/src/Sevices/Options_Service.java</file>
-            <file>file:/F:/Du_An_1/DuAn1_QuanLyBanMayTinhHSoft-main/1_DAL_HSoft/src/IServices/IOption_Service.java</file>
-            <file>file:/F:/Du_An_1/DuAn1_QuanLyBanMayTinhHSoft-main/1_DAL_HSoft/src/Models/NHAN_VIEN.java</file>
-            <file>file:/F:/Du_An_1/DuAn1_QuanLyBanMayTinhHSoft-main/1_DAL_HSoft/src/Sevices/Option_Values_Service.java</file>
-            <file>file:/F:/Du_An_1/DuAn1_QuanLyBanMayTinhHSoft-main/1_DAL_HSoft/src/IServices/IProduct_Service.java</file>
-            <file>file:/F:/Du_An_1/DuAn1_QuanLyBanMayTinhHSoft-main/1_DAL_HSoft/src/Helper/UtilityHelper.java</file>
-            <file>file:/F:/Du_An_1/DuAn1_QuanLyBanMayTinhHSoft-main/1_DAL_HSoft/src/Sevices/Product_Options_Service.java</file>
+            <file>file:/G:/My%20Drive/Code_FPoly/4.%20FALL21/Block2/DuAn1_QuanLyBanMayTinh/1_DAL_HSoft/src/Sevices/Product_Variant_Service.java</file>
+            <file>file:/G:/My%20Drive/Code_FPoly/4.%20FALL21/Block2/DuAn1_QuanLyBanMayTinh/1_DAL_HSoft/src/Sevices/Options_Service.java</file>
+            <file>file:/G:/My%20Drive/Code_FPoly/4.%20FALL21/Block2/DuAn1_QuanLyBanMayTinh/1_DAL_HSoft/src/Sevices/Option_Values_Service.java</file>
+            <file>file:/G:/My%20Drive/Code_FPoly/4.%20FALL21/Block2/DuAn1_QuanLyBanMayTinh/1_DAL_HSoft/src/IServices/IOption_Values_Service.java</file>
+            <file>file:/G:/My%20Drive/Code_FPoly/4.%20FALL21/Block2/DuAn1_QuanLyBanMayTinh/1_DAL_HSoft/src/IServices/IOption_Service.java</file>
+            <file>file:/G:/My%20Drive/Code_FPoly/4.%20FALL21/Block2/DuAn1_QuanLyBanMayTinh/1_DAL_HSoft/src/Sevices/Variant_Values_Service.java</file>
+            <file>file:/G:/My%20Drive/Code_FPoly/4.%20FALL21/Block2/DuAn1_QuanLyBanMayTinh/1_DAL_HSoft/src/Sevices/Variant_Values2_Service.java</file>
+            <file>file:/G:/My%20Drive/Code_FPoly/4.%20FALL21/Block2/DuAn1_QuanLyBanMayTinh/1_DAL_HSoft/src/IServices/IVariant_Values2_Service.java</file>
+            <file>file:/G:/My%20Drive/Code_FPoly/4.%20FALL21/Block2/DuAn1_QuanLyBanMayTinh/1_DAL_HSoft/src/IServices/IProduct_Variant_Service.java</file>
+            <file>file:/G:/My%20Drive/Code_FPoly/4.%20FALL21/Block2/DuAn1_QuanLyBanMayTinh/1_DAL_HSoft/src/Models/Variant_values.java</file>
         </group>
     </open-files>
 </project-private>

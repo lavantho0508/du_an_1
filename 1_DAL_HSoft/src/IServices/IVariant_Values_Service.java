@@ -22,7 +22,11 @@ public interface IVariant_Values_Service {
 
     public List<Variant_values> selectAll();
 
+    public List<Variant_values> selectByIDVariant(String IDVariant);
+
     public Variant_values findById(String idProduct);
+
+    public Variant_values findByIdVariant(String IDVariant);
 
     public Variant_values findByNames(String Names);
 
@@ -31,4 +35,6 @@ public interface IVariant_Values_Service {
     public void update(Variant_values variant_values);
 
     public void delete(String IDproduct);
+
+    public int countOptions(String IDVariant);
 }

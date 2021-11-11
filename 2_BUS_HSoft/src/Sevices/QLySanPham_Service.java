@@ -112,8 +112,8 @@ public class QLySanPham_Service implements IQLySanPhamService {
     }
 
     @Override
-    public Options_values findByIdOptions_values(String IDoptions_values) {
-        return _IOptionValues_Service.findById(IDoptions_values);
+    public Options_values findByIdValues_Options_values(String IDValues) {
+        return _IOptionValues_Service.findByIDValues(IDValues);
     }
 
     @Override
@@ -239,6 +239,26 @@ public class QLySanPham_Service implements IQLySanPhamService {
     @Override
     public void deleteVariantValues(Variant_values variant_values) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Variant_values findByIdVariant_VariantValues(String IDVariant) {
+        return _IVariant_Values_Service.findByIdVariant(IDVariant);
+    }
+
+    @Override
+    public int countOptions_VariantValues(String IDVariant) {
+        return _IVariant_Values_Service.countOptions(IDVariant);
+    }
+
+    @Override
+    public List<Variant_values> selectByIDVariant_VariantValues(String IDVarint) {
+        return _IVariant_Values_Service.selectByIDVariant(IDVarint);
+    }
+
+    @Override
+    public Options_values findByIdOptions_Options_values(String IDOptions) {
+        return _IOptionValues_Service.findByIdOptions(IDOptions);
     }
 
 }

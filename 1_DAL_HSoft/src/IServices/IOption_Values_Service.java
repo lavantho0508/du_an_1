@@ -27,7 +27,9 @@ public interface IOption_Values_Service {
 
     public List<Options_values> selectByID(String ID);
 
-    public Options_values findById(String IDoptions_values);
+    public Options_values findByIDValues(String IDValues);
+
+    public Options_values findByIdOptions(String IDoptions);
 
     public Options_values findByNames(String Names);
 

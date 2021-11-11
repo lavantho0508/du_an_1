@@ -91,7 +91,7 @@ public class Variant_Values_Service implements IServices.IVariant_Values_Service
 //                + "        join Options on Product_options.ID_Options = Options.ID_Options\n"
 //                + "        join Options_values on C2.ID_values = Options_values.ID_values\n"
 //                + "        join Product on Product_variant.ID_Product = Product.ID_Product";
-        String sql = "Select * from Variant_Values"; 
+        String sql = "Select * from Variant_Values";
         return select(sql);
     }
 
@@ -118,6 +118,40 @@ public class Variant_Values_Service implements IServices.IVariant_Values_Service
     @Override
     public void delete(String IDproduct) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Variant_values findByIdVariant(String IDVariant) {
+        String sql = "select * from Variant_values where ID_variant like ?";
+        List<Variant_values> list = select(sql, IDVariant);
+        return list.size() > 0 ? list.get(0) : null;
+    }
+
+    @Override
+    public int countOptions(String IDVariant) {
+        String sql = "select count(Variant_values.ID_Options)as 'TT'from Variant_values where ID_variant like ?";
+        int count = 0;
+        try {
+            ResultSet rs = null;
+            try {
+                rs = Helper.JdbcHelper.executeQuery(sql, IDVariant);
+                while (rs.next()) {
+                    count = rs.getInt(1);
+                }
+            } finally {
+                rs.getStatement().getConnection().close();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new RuntimeException();
+        }
+        return count;
+    }
+
+    @Override
+    public List<Variant_values> selectByIDVariant(String IDVariant) {
+        String sql = "select * from Variant_values where ID_variant like ?";
+        return select(sql, IDVariant);
     }
 
 }

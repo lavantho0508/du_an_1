@@ -435,7 +435,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jTabbedPane1" max="32767" attributes="0"/>
+                              <Component id="tab_VariantValues" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -456,14 +456,14 @@
                               <Component id="cbb_Product" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jTabbedPane1" min="-2" pref="406" max="-2" attributes="0"/>
+                          <Component id="tab_VariantValues" min="-2" pref="406" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
+                <Container class="javax.swing.JTabbedPane" name="tab_VariantValues">
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
                   <SubComponents>
@@ -479,9 +479,12 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
+                              <Group type="102" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jScrollPane1" pref="989" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jScrollPane1" pref="989" max="32767" attributes="0"/>
+                                      <Component id="jTextField1" max="32767" attributes="0"/>
+                                  </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -489,8 +492,10 @@
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jScrollPane1" min="-2" pref="364" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                                  <Component id="jTextField1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane1" min="-2" pref="321" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -573,9 +578,20 @@
                                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                                 </Property>
                               </Properties>
+                              <Events>
+                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tbl_Variant_values2MouseClicked"/>
+                              </Events>
                             </Component>
                           </SubComponents>
                         </Container>
+                        <Component class="javax.swing.JTextField" name="jTextField1">
+                          <Properties>
+                            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                              <Font name="Tahoma" size="12" style="0"/>
+                            </Property>
+                            <Property name="text" type="java.lang.String" value="T&#xec;m ki&#x1ebf;m"/>
+                          </Properties>
+                        </Component>
                       </SubComponents>
                     </Container>
                     <Container class="javax.swing.JPanel" name="jPanel9">
@@ -631,18 +647,16 @@
                                                       <Component id="jLabel21" alignment="0" min="-2" max="-2" attributes="0"/>
                                                       <Group type="102" alignment="0" attributes="0">
                                                           <EmptySpace min="-2" pref="112" max="-2" attributes="0"/>
-                                                          <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                                               <Group type="102" attributes="0">
                                                                   <Component id="rdb_0_variantValues" min="-2" max="-2" attributes="0"/>
-                                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                                  <EmptySpace max="32767" attributes="0"/>
                                                                   <Component id="rdb_1_variantValues" min="-2" max="-2" attributes="0"/>
                                                               </Group>
-                                                              <Group type="102" alignment="0" attributes="0">
-                                                                  <Component id="txt_barcode" min="-2" pref="198" max="-2" attributes="0"/>
-                                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                                  <Component id="btn_autoBarCode" min="-2" max="-2" attributes="0"/>
-                                                              </Group>
+                                                              <Component id="txt_barcode" min="-2" pref="198" max="-2" attributes="0"/>
                                                           </Group>
+                                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                          <Component id="btn_autoBarCode" min="-2" max="-2" attributes="0"/>
                                                       </Group>
                                                   </Group>
                                                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
@@ -968,12 +982,12 @@
                         </Component>
                         <Component class="javax.swing.JRadioButton" name="rdb_0_variantValues">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="&#x110;ang kinh doanh"/>
+                            <Property name="text" type="java.lang.String" value="C&#xf2;n h&#xe0;ng"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JRadioButton" name="rdb_1_variantValues">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="Ng&#x1eeb;ng kinh doanh"/>
+                            <Property name="text" type="java.lang.String" value="H&#x1ebf;t h&#xe0;ng"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JComboBox" name="cbb_IDVariant">
@@ -994,6 +1008,9 @@
                               </StringArray>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbb_IDVariantActionPerformed"/>
+                          </Events>
                           <AuxValues>
                             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                           </AuxValues>
@@ -1677,7 +1694,7 @@
                           <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="47" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1973,52 +1990,55 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="jScrollPane4" pref="0" max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="cbb_option" min="-2" pref="182" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="jLabel13" min="-2" pref="93" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="txt_NamesOptionValues" min="-2" pref="299" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="jLabel12" min="-2" pref="83" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Component id="txt_IDOptionValues" min="-2" pref="301" max="-2" attributes="0"/>
+                                              <Component id="cbb_option" min="-2" pref="182" max="-2" attributes="0"/>
                                           </Group>
-                                      </Group>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="jLabel14" min="-2" pref="93" max="-2" attributes="0"/>
-                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                  <Component id="rdb_0_OptionValues" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="btn_insertOptionValues" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                  <Component id="btn_updateOptionValues" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="1" attributes="0">
-                                              <Component id="rdb_1_OptionValues" min="-2" max="-2" attributes="0"/>
+                                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                                               <Group type="102" alignment="1" attributes="0">
-                                                  <Component id="btn_deleteOptionValues" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel13" min="-2" pref="93" max="-2" attributes="0"/>
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                  <Component id="btn_newOptionValues" min="-2" pref="109" max="-2" attributes="0"/>
+                                                  <Component id="txt_NamesOptionValues" min="-2" pref="299" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="jLabel12" min="-2" pref="83" max="-2" attributes="0"/>
+                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                  <Component id="txt_IDOptionValues" min="-2" pref="301" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jLabel14" min="-2" pref="93" max="-2" attributes="0"/>
+                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                      <Component id="rdb_0_OptionValues" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="btn_insertOptionValues" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                      <Component id="btn_updateOptionValues" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="1" attributes="0">
+                                                  <Component id="rdb_1_OptionValues" min="-2" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="1" attributes="0">
+                                                      <Component id="btn_deleteOptionValues" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                      <Component id="btn_newOptionValues" min="-2" pref="109" max="-2" attributes="0"/>
+                                                  </Group>
                                               </Group>
                                           </Group>
                                       </Group>
+                                      <EmptySpace min="0" pref="40" max="32767" attributes="0"/>
                                   </Group>
+                                  <Component id="jScrollPane4" pref="0" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="50" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>

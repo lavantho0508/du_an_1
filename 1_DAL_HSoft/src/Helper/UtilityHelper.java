@@ -79,12 +79,12 @@ public class UtilityHelper {
     public static boolean checkMaNV(JTextField txt) {
         txt.setBackground(white);
         String id = txt.getText();
-        String rgx = "[a-zA-Z0-9]{3,10}";
+        String rgx = "[a-zA-Z0-9]{3,15}";
         if (id.matches(rgx)) {
             return true;
         } else {
             txt.setBackground(pink);
-            Helper.DialogHelper.alert(txt.getRootPane(), "Mã nhân viên phải có 3-10 kí tự\nchữ hoa, thường không dấu hoặc số.");
+            Helper.DialogHelper.alert(txt.getRootPane(), "Mã nhân viên phải có 3-15 kí tự\nchữ hoa, thường không dấu hoặc số.");
             return false;
         }
     }

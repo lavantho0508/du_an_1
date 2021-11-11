@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package IServices;
 
 import Models.Options;
@@ -13,11 +9,8 @@ import Models.Product_variant;
 import Models.Variant_Values2;
 import Models.Variant_values;
 import java.util.List;
+//Hello HTML
 
-/**
- *
- * @author BUI_QUANG_HIEU
- */
 public interface IQLySanPhamService {
 
     public List<Product> selectAllProduct();
@@ -52,7 +45,9 @@ public interface IQLySanPhamService {
 
     public List<Options_values> selectByIDOptions_values(String ID);
 
-    public Options_values findByIdOptions_values(String IDoptions_values);
+    public Options_values findByIdValues_Options_values(String IDValues);
+    
+    public Options_values findByIdOptions_Options_values(String IDOptions);
 
     public Options_values findByNamesOptions_values(String Names);
 
@@ -91,14 +86,21 @@ public interface IQLySanPhamService {
     public void deleteProduct_Options(String IDProduct);
 
     public List<Variant_values> selectAllVariantValues();
+    
+    public List<Variant_values> selectByIDVariant_VariantValues(String IDVarint);
 
     public List<Variant_values> selectByIDVariantValues(String IDProduct);
 
     public Variant_values findByIdVariantValues(String IDProduct);
+
+    public Variant_values findByIdVariant_VariantValues(String IDVariant);
 
     public void insertVariantValues(Variant_values variant_values);
 
     public void updateVariantValues(Variant_values variant_values);
 
     public void deleteVariantValues(Variant_values variant_values);
+
+    public int countOptions_VariantValues(String IDVariant);
+    
 }

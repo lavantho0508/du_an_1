@@ -58,7 +58,7 @@ public class Product_variant {
 
     @Override
     public String toString() {
-        return ID_variant + " " + SKU_ID;
+        return SKU_ID;
     }
 
 }

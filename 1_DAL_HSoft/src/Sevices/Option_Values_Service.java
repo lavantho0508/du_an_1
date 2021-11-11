@@ -61,9 +61,9 @@ public class Option_Values_Service implements IOption_Values_Service {
     }
 
     @Override
-    public Options_values findById(String IDoptions_values) {
+    public Options_values findByIDValues(String IDValues) {
         String sql = "select * from Options_values where ID_values like ?";
-        List<Options_values> list = select(sql, IDoptions_values);
+        List<Options_values> list = select(sql, IDValues);
         return list.size() > 0 ? list.get(0) : null;
     }
 
@@ -104,6 +104,13 @@ public class Option_Values_Service implements IOption_Values_Service {
     public List<Options_values> selectByID(String ID) {
         String sql = "select * from Options_values where ID_Options like ?";
         return select(sql, ID);
+    }
+
+    @Override
+    public Options_values findByIdOptions(String IDoptions) {
+        String sql = "select * from Options_values where ID_Options like ?";
+        List<Options_values> list = select(sql, IDoptions);
+        return list.size() > 0 ? list.get(0) : null;
     }
 
 }

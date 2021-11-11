@@ -4,14 +4,6 @@
  * and open the template in the editor.
  */
 package GUI;
-import Helper.JdbcHelper;
-import Helper.UtilityHelper;
-import Models.NHAN_VIEN;
-import Models.NHAN_VIEN_BUS;
-import Sevices.QLNHAN_VIEN_Service;
-import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.text.Utilities;
 
 /**
  *
@@ -19,8 +11,6 @@ import javax.swing.text.Utilities;
  */
 public class FormLogin extends javax.swing.JDialog {
     FormForgotPassword _forgot = new FormForgotPassword(new javax.swing.JFrame(), true);
-    List<NHAN_VIEN>list= new QLNHAN_VIEN_Service().selectAll();
-    FormChinh fc=new FormChinh();
     /**
      * Creates new form FormLogin
      */
@@ -28,34 +18,8 @@ public class FormLogin extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
     }
-public boolean checkInforUser(){
-    for (NHAN_VIEN x : list) {
-        if(txt_user.getText().equals(x.getMANV())&&txt_pass.getText().equals(x.getMATKHAU())){
-            return true;
-        }
-        
-    }
-    return false;
-}
-public void login(){
-    if(UtilityHelper.checkNullText(txt_user)==false){
-        return;
-    }
-    if(UtilityHelper.checkNullPass(txt_pass)==false){
-        return;
-    }
-   if( UtilityHelper.checkMaNV(txt_user)==false){
-       return;
-   }
-    if(checkInforUser()==true){
-        JOptionPane.showMessageDialog(rootPane, "Đăng nhập thành công");
-        this.dispose();
-        fc.setVisible(true);     
-    }else{
-        JOptionPane.showMessageDialog(rootPane,"Thông tin tài khoản hoặc mật khẩu không chính xác");
-    }
     
-}
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -70,7 +34,7 @@ public void login(){
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        txt_user = new javax.swing.JTextField();
+        jTextField1 = new javax.swing.JTextField();
         txt_pass = new javax.swing.JPasswordField();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
@@ -121,19 +85,14 @@ public void login(){
 
         jPanel3.setBackground(new java.awt.Color(255, 102, 102));
 
-        txt_user.setBackground(new java.awt.Color(255, 102, 102));
-        txt_user.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        txt_user.setForeground(new java.awt.Color(240, 240, 240));
-        txt_user.setText("Tên đăng nhập");
-        txt_user.setBorder(null);
-        txt_user.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txt_userMouseClicked(evt);
-            }
-        });
-        txt_user.addActionListener(new java.awt.event.ActionListener() {
+        jTextField1.setBackground(new java.awt.Color(255, 102, 102));
+        jTextField1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jTextField1.setForeground(new java.awt.Color(240, 240, 240));
+        jTextField1.setText("Tên đăng nhập");
+        jTextField1.setBorder(null);
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_userActionPerformed(evt);
+                jTextField1ActionPerformed(evt);
             }
         });
 
@@ -141,11 +100,6 @@ public void login(){
         txt_pass.setForeground(new java.awt.Color(240, 240, 240));
         txt_pass.setText("passwork");
         txt_pass.setBorder(null);
-        txt_pass.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txt_passMouseClicked(evt);
-            }
-        });
         txt_pass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_passActionPerformed(evt);
@@ -188,11 +142,6 @@ public void login(){
         jLabel3.setForeground(new java.awt.Color(240, 240, 240));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Đăng nhập");
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -239,7 +188,7 @@ public void login(){
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txt_user)
+                        .addComponent(jTextField1)
                         .addComponent(txt_pass, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                         .addComponent(jSeparator1)
                         .addComponent(jSeparator2))
@@ -270,7 +219,7 @@ public void login(){
                 .addGap(32, 32, 32)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                    .addComponent(txt_user))
+                    .addComponent(jTextField1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -318,9 +267,9 @@ public void login(){
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txt_userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_userActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_userActionPerformed
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+//        
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void txt_passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_passActionPerformed
         // TODO add your handling code here:
@@ -334,18 +283,6 @@ public void login(){
     this.dispose();
         _forgot.setVisible(true);
     }//GEN-LAST:event_jLabel5MouseClicked
-
-    private void txt_userMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_userMouseClicked
-      txt_user.setText(null);
-    }//GEN-LAST:event_txt_userMouseClicked
-
-    private void txt_passMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_passMouseClicked
-txt_pass.setText(null);        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_passMouseClicked
-
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-login();        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel3MouseClicked
 
     /**
      * @param args the command line arguments
@@ -406,7 +343,7 @@ login();        // TODO add your handling code here:
     private javax.swing.JPanel jPanel6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JPasswordField txt_pass;
-    private javax.swing.JTextField txt_user;
     // End of variables declaration//GEN-END:variables
 }

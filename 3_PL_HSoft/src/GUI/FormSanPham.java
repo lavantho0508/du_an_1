@@ -16,6 +16,7 @@ import Models.Product_variant;
 import Models.Variant_Values2;
 import Models.Variant_values;
 import Sevices.QLySanPham_Service;
+import com.barcodelib.barcode.Linear;
 import java.awt.Color;
 import java.awt.FileDialog;
 import java.awt.Frame;
@@ -31,6 +32,8 @@ import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -47,8 +50,8 @@ public class FormSanPham extends javax.swing.JDialog {
     int _rowOptionValues = -1;
     int _rowProductVariant = -1;
     int _thuocTinhs = 0;
-    List<String> _cbbTT = new ArrayList<>();
-    List<String> _cbbGTTT = new ArrayList<>();
+    List<String> _ListcbbTT = new ArrayList<>();
+    List<String> _ListcbbGTTT = new ArrayList<>();
     File _file;
     FileDialog _fd = new FileDialog(new Frame(), "Chọn ảnh cho sản phẩm", FileDialog.LOAD);
     String _images = null;
@@ -90,7 +93,7 @@ public class FormSanPham extends javax.swing.JDialog {
         this.fillTableOption();
         this.fillComboBoxOption();
         this.selectCbbOptions();
-        this.actionOptions();
+//        this.actionOptions();
 
     }
 
@@ -425,8 +428,8 @@ public class FormSanPham extends javax.swing.JDialog {
         Product product = (Product) cbb_Product.getSelectedItem();
         Product_options product_options = new Product_options();
         List<Object> list = new ArrayList<>();
-        for (int i = 0; i < _cbbTT.size(); i++) {
-            Options out = _IQLySanPhamService.findByNamesOptions(_cbbTT.get(i));
+        for (int i = 0; i < _ListcbbTT.size(); i++) {
+            Options out = _IQLySanPhamService.findByNamesOptions(_ListcbbTT.get(i));
             System.out.println(out.getID_Options());
             product_options.setID_Product(product.getID_Product());
             product_options.setID_Options(out.getID_Options());
@@ -446,9 +449,9 @@ public class FormSanPham extends javax.swing.JDialog {
         Product_variant product_variant = (Product_variant) cbb_IDVariant.getSelectedItem();
         Variant_values variant_values = new Variant_values();
 
-        for (int i = 0; i < _cbbTT.size(); i++) {
-            Options options = _IQLySanPhamService.findByNamesOptions(_cbbTT.get(i));
-            Options_values options_values = _IQLySanPhamService.findByNamesOptions_values(_cbbGTTT.get(i));
+        for (int i = 0; i < _ListcbbTT.size(); i++) {
+            Options options = _IQLySanPhamService.findByNamesOptions(_ListcbbTT.get(i));
+            Options_values options_values = _IQLySanPhamService.findByNamesOptions_values(_ListcbbGTTT.get(i));
             variant_values.setID_Product(product.getID_Product());
             variant_values.setID_variant(product_variant.getID_variant());
             variant_values.setID_Options(options.getID_Options());
@@ -498,7 +501,7 @@ public class FormSanPham extends javax.swing.JDialog {
     public void editOptionValues() {
         try {
             String idOptionValues = String.valueOf(tbl_OptionValues.getValueAt(this._rowOptionValues, 0));
-            Options_values model = _IQLySanPhamService.findByIdOptions_values(idOptionValues);
+            Options_values model = _IQLySanPhamService.findByIdOptions_Options_values(idOptionValues);
             if (model != null) {
                 this.setFormOptionValues(model);
 //                this.setStatus(false);
@@ -576,11 +579,12 @@ public class FormSanPham extends javax.swing.JDialog {
         try {
             _IQLySanPhamService.insertProduct_variant(product_variant);
             this.fillTableProductVarintByID();
-            this.fillTableVariantValuesByID();
-            this.fillComboBoxIDVariant_ProductVarint();
+            this.fillComboBoxAllProductVarint();
+//            this.fillTableVariantValuesByID();
+//            this.fillComboBoxIDVariant_ProductVarint();
 //            this.viewSoTrang();
             this.clearFormProductVariant();
-//            tabs.setSelectedIndex(1);
+
             Helper.DialogHelper.alert(this, "Thêm mới thành công!");
         } catch (Exception e) {
             e.printStackTrace();
@@ -593,9 +597,8 @@ public class FormSanPham extends javax.swing.JDialog {
         Product product = (Product) cbb_Product.getSelectedItem();
         Product_options product_options = new Product_options();
         try {
-            for (int i = 0; i < _cbbTT.size(); i++) {
-                Options out = _IQLySanPhamService.findByNamesOptions(_cbbTT.get(i));
-                System.out.println(out.getID_Options());
+            for (int i = 0; i < _ListcbbTT.size(); i++) {
+                Options out = _IQLySanPhamService.findByNamesOptions(_ListcbbTT.get(i));
                 product_options.setID_Product(product.getID_Product());
                 product_options.setID_Options(out.getID_Options());
                 if (rdb_0_variantValues.isSelected()) {
@@ -629,9 +632,9 @@ public class FormSanPham extends javax.swing.JDialog {
             Product_variant product_variant = (Product_variant) cbb_IDVariant.getSelectedItem();
             Variant_values variant_values = new Variant_values();
 
-            for (int i = 0; i < _cbbTT.size(); i++) {
-                Options options = _IQLySanPhamService.findByNamesOptions(_cbbTT.get(i));
-                Options_values options_values = _IQLySanPhamService.findByNamesOptions_values(_cbbGTTT.get(i));
+            for (int i = 0; i < _ListcbbTT.size(); i++) {
+                Options options = _IQLySanPhamService.findByNamesOptions(_ListcbbTT.get(i));
+                Options_values options_values = _IQLySanPhamService.findByNamesOptions_values(_ListcbbGTTT.get(i));
                 variant_values.setID_Product(product.getID_Product());
                 variant_values.setID_variant(product_variant.getID_variant());
                 variant_values.setID_Options(options.getID_Options());
@@ -730,8 +733,9 @@ public class FormSanPham extends javax.swing.JDialog {
 //            this.viewSoTrang();
 //            tabs.setSelectedIndex(1);
                 this.fillTableProductVarintByID();
-                this.fillTableVariantValuesByID();
-                this.fillComboBoxIDVariant_ProductVarint();
+                this.fillComboBoxAllProductVarint();
+//                this.fillTableVariantValuesByID();
+//                this.fillComboBoxIDVariant_ProductVarint();
                 Helper.DialogHelper.alert(this, "Cập nhật thành công!");
             } catch (Exception e) {
                 e.printStackTrace();
@@ -804,10 +808,32 @@ public class FormSanPham extends javax.swing.JDialog {
 //                this.viewSoTrang();
                 this.clearFormProductVariant();//xóa trắng form và chỉnh lại status
                 this.fillTableProductVarintByID();
-                this.fillTableVariantValuesByID();
-                this.fillComboBoxIDVariant_ProductVarint();
+                this.fillComboBoxAllProductVarint();
+//                this.fillTableVariantValuesByID();
+//                this.fillComboBoxIDVariant_ProductVarint();
                 Helper.DialogHelper.alert(this, "Xóa thành công!");
-//                tabs.setSelectedIndex(1);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Helper.DialogHelper.alert(this, "Xóa thất bại!");
+            }
+        }
+    }
+
+    public void deleteVariantValues() {
+        Product product = (Product) cbb_Product1.getSelectedItem();
+        if (Helper.DialogHelper.confirm(this, "Bạn thực sự muốn xóa giá trị này?")) {
+            try {
+                _IQLySanPhamService.deleteProduct_variant(product.getID_Product(), txt_IDVariant_ProductVariant.getText());
+//                this.fillTable(_trang);//điền tt mới vào bảng
+//                this.viewSoTrang();
+                this.clearFormProductVariant();//xóa trắng form và chỉnh lại status
+                this.fillTableProductVarintByID();
+                this.fillComboBoxAllProductVarint();
+//                this.fillTableVariantValuesByID();
+//                this.fillComboBoxIDVariant_ProductVarint();
+                Helper.DialogHelper.alert(this, "Xóa thành công!");
+
             } catch (Exception e) {
                 e.printStackTrace();
                 Helper.DialogHelper.alert(this, "Xóa thất bại!");
@@ -855,7 +881,7 @@ public class FormSanPham extends javax.swing.JDialog {
     }
 
     public boolean checkIDOptionValues(String ID) {
-        if (_IQLySanPhamService.findByIdOptions_values(ID) == null) {
+        if (_IQLySanPhamService.findByIdOptions_Options_values(ID) == null) {
             return true;
         } else {
             Helper.DialogHelper.alert(this, "Mã " + ID + " đã tồn tại !");
@@ -932,7 +958,7 @@ public class FormSanPham extends javax.swing.JDialog {
         _cbx.setSize(100, 30);
         _cbx.setLocation(5, 0 + ((_thuocTinhs - 1) * 50));
         _cbx2.setSize(150, 30);
-        _cbx2.setLocation(100, 0 + ((_thuocTinhs - 1) * 50));
+        _cbx2.setLocation(110, 0 + ((_thuocTinhs - 1) * 50));
         Panel_ThuocTinhs.add(_cbx);
         Panel_ThuocTinhs.add(_cbx2);
         DefaultComboBoxModel cbbOptions = (DefaultComboBoxModel) _cbx.getModel();
@@ -990,10 +1016,11 @@ public class FormSanPham extends javax.swing.JDialog {
         jSeparator4 = new javax.swing.JSeparator();
         tabs_QLSP = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tab_VariantValues = new javax.swing.JTabbedPane();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_Variant_values2 = new javax.swing.JTable();
+        jTextField1 = new javax.swing.JTextField();
         jPanel9 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -1341,6 +1368,11 @@ public class FormSanPham extends javax.swing.JDialog {
         tbl_Variant_values2.setGridColor(new java.awt.Color(255, 102, 102));
         tbl_Variant_values2.setRowHeight(22);
         tbl_Variant_values2.setSelectionBackground(new java.awt.Color(255, 102, 102));
+        tbl_Variant_values2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_Variant_values2MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbl_Variant_values2);
         if (tbl_Variant_values2.getColumnModel().getColumnCount() > 0) {
             tbl_Variant_values2.getColumnModel().getColumn(0).setMinWidth(70);
@@ -1355,24 +1387,31 @@ public class FormSanPham extends javax.swing.JDialog {
             tbl_Variant_values2.getColumnModel().getColumn(6).setMaxWidth(70);
         }
 
+        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextField1.setText("Tìm kiếm");
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 989, Short.MAX_VALUE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 989, Short.MAX_VALUE)
+                    .addComponent(jTextField1))
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Danh sách", jPanel8);
+        tab_VariantValues.addTab("Danh sách", jPanel8);
 
         jPanel9.setBackground(new java.awt.Color(255, 204, 204));
 
@@ -1512,14 +1551,19 @@ public class FormSanPham extends javax.swing.JDialog {
 
         txt_barcode.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
 
-        rdb_0_variantValues.setText("Đang kinh doanh");
+        rdb_0_variantValues.setText("Còn hàng");
 
-        rdb_1_variantValues.setText("Ngừng kinh doanh");
+        rdb_1_variantValues.setText("Hết hàng");
 
         cbb_IDVariant.setBackground(new java.awt.Color(255, 102, 102));
         cbb_IDVariant.setEditable(true);
         cbb_IDVariant.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         cbb_IDVariant.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbb_IDVariant.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbb_IDVariantActionPerformed(evt);
+            }
+        });
 
         jPanel17.setBackground(new java.awt.Color(255, 153, 153));
         jPanel17.setBorder(javax.swing.BorderFactory.createTitledBorder("Hình ảnh"));
@@ -1576,15 +1620,14 @@ public class FormSanPham extends javax.swing.JDialog {
                                     .addComponent(jLabel21)
                                     .addGroup(jPanel9Layout.createSequentialGroup()
                                         .addGap(112, 112, 112)
-                                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addGroup(jPanel9Layout.createSequentialGroup()
                                                 .addComponent(rdb_0_variantValues)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(rdb_1_variantValues))
-                                            .addGroup(jPanel9Layout.createSequentialGroup()
-                                                .addComponent(txt_barcode, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(btn_autoBarCode)))))
+                                            .addComponent(txt_barcode, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btn_autoBarCode)))
                                 .addGap(30, 30, 30)
                                 .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -1634,7 +1677,7 @@ public class FormSanPham extends javax.swing.JDialog {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Cập nhật", jPanel9);
+        tab_VariantValues.addTab("Cập nhật", jPanel9);
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(51, 51, 51));
@@ -1657,7 +1700,7 @@ public class FormSanPham extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1)
+                    .addComponent(tab_VariantValues)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addGap(18, 18, 18)
@@ -1673,7 +1716,7 @@ public class FormSanPham extends javax.swing.JDialog {
                     .addComponent(jLabel7)
                     .addComponent(cbb_Product, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tab_VariantValues, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -2265,40 +2308,42 @@ public class FormSanPham extends javax.swing.JDialog {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel7Layout.createSequentialGroup()
-                            .addComponent(jLabel8)
-                            .addGap(18, 18, 18)
-                            .addComponent(cbb_option, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txt_NamesOptionValues, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel8)
                                 .addGap(18, 18, 18)
-                                .addComponent(txt_IDOptionValues, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel7Layout.createSequentialGroup()
-                                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(rdb_0_OptionValues))
-                                .addGroup(jPanel7Layout.createSequentialGroup()
-                                    .addComponent(btn_insertOptionValues)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(btn_updateOptionValues)))
-                            .addGap(18, 18, 18)
+                                .addComponent(cbb_option, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(rdb_1_OptionValues)
                                 .addGroup(jPanel7Layout.createSequentialGroup()
-                                    .addComponent(btn_deleteOptionValues)
+                                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(btn_newOptionValues, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(50, Short.MAX_VALUE))
+                                    .addComponent(txt_NamesOptionValues, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel7Layout.createSequentialGroup()
+                                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(txt_IDOptionValues, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel7Layout.createSequentialGroup()
+                                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(rdb_0_OptionValues))
+                                    .addGroup(jPanel7Layout.createSequentialGroup()
+                                        .addComponent(btn_insertOptionValues)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btn_updateOptionValues)))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(rdb_1_OptionValues)
+                                    .addGroup(jPanel7Layout.createSequentialGroup()
+                                        .addComponent(btn_deleteOptionValues)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btn_newOptionValues, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 40, Short.MAX_VALUE))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2340,7 +2385,7 @@ public class FormSanPham extends javax.swing.JDialog {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2582,7 +2627,18 @@ public class FormSanPham extends javax.swing.JDialog {
         insertVarianValues();
 //        Product product = (Product) cbb_Product.getSelectedItem();
 //        System.out.println(product.getID_Product());
+        try {
 
+            Linear barcode = new Linear();
+            barcode.setType(Linear.CODE128B);
+            barcode.setData(txt_barcode.getText());
+            barcode.setI(11.0f);
+            String fname = txt_barcode.getText();
+            barcode.renderBarcode("barcode\\" + fname + ".png");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btn_insertVariantValuesActionPerformed
 
     private void btn_updateVariantValuesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_updateVariantValuesActionPerformed
@@ -2594,7 +2650,12 @@ public class FormSanPham extends javax.swing.JDialog {
     }//GEN-LAST:event_btn_deleteVariantValuesActionPerformed
 
     private void btn_newVariantValuesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_newVariantValuesActionPerformed
-        // TODO add your handling code here:
+        if (Helper.DialogHelper.confirm(this, "Bạn thực sự muốn làm mới?")) {
+            txt_Quarity.setText("");
+            txt_Price.setText("");
+            txt_barcode.setText("");
+            rdb_0_variantValues.setSelected(true);
+        }
     }//GEN-LAST:event_btn_newVariantValuesActionPerformed
 
     private void btn_addOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addOptionsActionPerformed
@@ -2666,8 +2727,8 @@ public class FormSanPham extends javax.swing.JDialog {
     }//GEN-LAST:event_tbl_ProductVariantMouseClicked
 
     private void btn_saveOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saveOptionsActionPerformed
-        _cbbTT.add(String.valueOf(_cbx.getSelectedItem()));
-        _cbbGTTT.add(String.valueOf(_cbx2.getSelectedItem()));
+        _ListcbbTT.add(String.valueOf(_cbx.getSelectedItem()));
+        _ListcbbGTTT.add(String.valueOf(_cbx2.getSelectedItem()));
     }//GEN-LAST:event_btn_saveOptionsActionPerformed
 
     private void lbl_imagesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_imagesMouseClicked
@@ -2688,9 +2749,110 @@ public class FormSanPham extends javax.swing.JDialog {
 
     private void btn_autoBarCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_autoBarCodeActionPerformed
         String uuid = UUID.randomUUID().toString().replaceAll("-", "");
-        String random = uuid.substring(0, 13);
+        String random = uuid.substring(0, 5);
         txt_barcode.setText(random);
+        try {
+
+            Linear barcode = new Linear();
+            barcode.setType(Linear.CODE128B);
+            barcode.setData(txt_Quarity.getText());
+            barcode.setI(11.0f);
+            String fname = txt_Quarity.getText();
+            barcode.renderBarcode("barcode\\" + fname + ".png");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btn_autoBarCodeActionPerformed
+
+    private void tbl_Variant_values2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_Variant_values2MouseClicked
+        int index = tbl_Variant_values2.getSelectedRow();
+        Variant_values variant_values = _IQLySanPhamService.findByIdVariant_VariantValues(String.valueOf(tbl_Variant_values2.getValueAt(index, 1)));
+        List<Variant_values> listVariant_valueses = _IQLySanPhamService.selectByIDVariant_VariantValues(String.valueOf(tbl_Variant_values2.getValueAt(index, 1)));
+        Product_variant product_variant = _IQLySanPhamService.findByIdProduct_variant(String.valueOf(tbl_Variant_values2.getValueAt(index, 1)));
+
+//        List<String> lstOptions = new ArrayList<>();
+//        lstOptions.add(variant_values.getID_values());
+//        for (int i = 0; i < listVariant_valueses.size(); i++) {
+//            System.out.println(listVariant_valueses.get(index));
+//        }
+//        System.out.println(variant_values);
+//        System.out.println(listVariant_valueses.size());
+        int countOptions = _IQLySanPhamService.countOptions_VariantValues(String.valueOf(tbl_Variant_values2.getValueAt(index, 1)));
+        if (evt.getClickCount() == 2) {
+            if (index >= 0) {
+                cbb_IDVariant.setSelectedItem(product_variant.getSKU_ID());
+                txt_Quarity.setText(String.valueOf(tbl_Variant_values2.getValueAt(index, 4)));
+                txt_Price.setText(String.valueOf(tbl_Variant_values2.getValueAt(index, 5)));
+                txt_barcode.setText(variant_values.getBarcode());
+                String url = "images\\" + variant_values.getImages();
+                ImageIcon imageIcon = new ImageIcon(url);
+                Image img = imageIcon.getImage();
+                lbl_images.setIcon(new ImageIcon(img.getScaledInstance(140, 200, 0)));
+                //                Panel_ThuocTinhs = new JPanel();
+                //                Panel_ThuocTinhs.removeAll();
+//                SrollPane_Options = new JScrollPane();
+                Panel_ThuocTinhs.removeAll();
+                _thuocTinhs = 0;
+                Panel_ThuocTinhs.repaint();
+                for (int i = 0; i < countOptions; i++) {
+                    actionOptions();
+                    Options o = _IQLySanPhamService.findByIdOptions(listVariant_valueses.get(i).getID_Options());
+                    Options_values o1 = _IQLySanPhamService.findByIdValues_Options_values(listVariant_valueses.get(i).getID_values());
+//                    System.out.println(o.getNames());
+//                    System.out.println(o1.getNames());
+//                    _cbx.setSelectedItem(o.getNames());
+
+                    for (int j = 1; j <= _cbx.getItemCount(); j++) {
+//                        System.out.println(_cbx.getItemAt(j));
+                        if (o.getNames().equalsIgnoreCase(_cbx.getItemAt(j) + "")) {
+                            _cbx.setSelectedIndex(j);
+                        }
+                    }
+                    for (int j = 0; j < _cbx2.getItemCount(); j++) {
+                        if (o1.getNames().equalsIgnoreCase(_cbx2.getItemAt(j) + "")) {
+                            _cbx2.setSelectedIndex(j);
+                        }
+                    }
+//                    System.out.println(_cbx.getItemCount());
+                }
+                tab_VariantValues.setSelectedIndex(1);
+            }
+        }
+//        if (tab_VariantValues.getSelectedIndex() == 0) {
+//            Panel_ThuocTinhs = new JPanel();
+//        }
+    }//GEN-LAST:event_tbl_Variant_values2MouseClicked
+
+    private void cbb_IDVariantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbb_IDVariantActionPerformed
+        try {
+            Product_variant product_variant = (Product_variant) cbb_IDVariant.getSelectedItem();
+            Variant_values variant_values = _IQLySanPhamService.findByIdVariant_VariantValues(product_variant.getID_variant());
+            if (variant_values != null) {
+                txt_Quarity.setText(String.valueOf(variant_values.getQuantity()));
+                txt_Price.setText(String.valueOf(variant_values.getPrice()));
+                txt_barcode.setText(String.valueOf(variant_values.getBarcode()));
+                btn_insertVariantValues.setEnabled(false);
+                String url = "images\\" + variant_values.getImages();
+                ImageIcon imageIcon = new ImageIcon(url);
+                Image img = imageIcon.getImage();
+                lbl_images.setIcon(new ImageIcon(img.getScaledInstance(140, 200, 0)));
+                if (variant_values.getTRANGTHAI() == 0) {
+                    rdb_0_variantValues.setSelected(true);
+                } else {
+                    rdb_1_variantValues.setSelected(true);
+                }
+            } else {
+                txt_Quarity.setText("");
+                txt_Price.setText("");
+                txt_barcode.setText("");
+                btn_insertVariantValues.setEnabled(true);
+                lbl_images.setIcon(null);
+            }
+        } catch (Exception e) {
+//            e.printStackTrace();
+        }
+    }//GEN-LAST:event_cbb_IDVariantActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2822,7 +2984,7 @@ public class FormSanPham extends javax.swing.JDialog {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblDanhMuc;
     private javax.swing.JLabel lblLoaiSP;
     private javax.swing.JLabel lblThuocTinh;
@@ -2840,6 +3002,7 @@ public class FormSanPham extends javax.swing.JDialog {
     private javax.swing.JRadioButton rdb_1_Product;
     private javax.swing.JRadioButton rdb_1_ProductVariant;
     private javax.swing.JRadioButton rdb_1_variantValues;
+    private javax.swing.JTabbedPane tab_VariantValues;
     private javax.swing.JTabbedPane tabs_QLSP;
     private javax.swing.JTable tbl_OptionValues;
     private javax.swing.JTable tbl_Product;

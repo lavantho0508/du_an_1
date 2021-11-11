@@ -5,35 +5,12 @@
  */
 package GUI;
 
-import Models.NHAN_VIEN;
-import Sevices.QLNHAN_VIEN_Service;
-import java.io.UnsupportedEncodingException;
-import java.net.Authenticator;
-import java.net.PasswordAuthentication;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import javax.swing.JOptionPane;
-
-
 /**
  *
  * @author LENOVO
  */
 public class FormForgotPassword extends javax.swing.JDialog {
-    List<NHAN_VIEN>list=new ArrayList<>();
-    QLNHAN_VIEN_Service qlnv=new QLNHAN_VIEN_Service();
-    String code;
-    int send=90,chon=0;
+
     /**
      * Creates new form FormForgotPassword
      */
@@ -41,90 +18,8 @@ public class FormForgotPassword extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        list=qlnv.selectAll();
-       
-        
     }
-    private boolean checkMa(){
-         
-        for (NHAN_VIEN x : list) {
-            if(txt_ma.getText().equals(x.getMANV())){
-                return true;
-            }
-            
-        }
-        return false;
-    }
-    private boolean checkEmailByMa(){
-       list=qlnv.selecEmailByID(txt_ma.getText());
-        for (NHAN_VIEN x : list) {
-            if(txt_mail.getText().equals(x.getEMAIL())){
-                return true;
-            }
-        }
-     return false;
-    }
-    private void sendCode(String email) throws MessagingException, UnsupportedEncodingException{
-        int dem=0;
-        dem++;
-        if(dem>=2){
-            btn_getCode.setText("Lấy lại mã");
-        }
-       code=qlnv.randomCode();
-     Properties mailServerProperties;
-    Session getMailSession;
-    MimeMessage mailMessage;
- 
-    // Step1: setup Mail Server
-    mailServerProperties = System.getProperties();
-    mailServerProperties.put("mail.smtp.port", "587");
-    mailServerProperties.put("mail.smtp.auth", "true");
-    mailServerProperties.put("mail.smtp.starttls.enable", "true");
- 
-    // Step2: get Mail Session
-    getMailSession = Session.getDefaultInstance(mailServerProperties, null);
-    mailMessage = new MimeMessage(getMailSession);
- 
-    mailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(email)); //Thay abc bằng địa chỉ người nhận
- 
-    // Bạn có thể chọn CC, BCC
-//    generateMailMessage.addRecipient(Message.RecipientType.CC, new InternetAddress("cc@gmail.com")); //Địa chỉ cc gmail
-    mailMessage.setSubject("Mã xác nhận đổi mật khẩu HSOFT");
-    
 
-    mailMessage.setText("Mã xác nhận của bạn là :"+code);
-    Thread thread=new Thread(new Runnable() {
-           @Override
-           public void run() {
-               for (int i = send; i>0; i--) {
-                   btn_getCode.setText(i+"");
-                   try {
-                       btn_getCode.setEnabled(false);
-                        btn_getCode.enableInputMethods(false);
-                       Thread.sleep(1000);
-                       if(i==1){
-                           code=qlnv.randomCode();
-                           System.out.println(code);
-                           btn_getCode.setEnabled(true);
-                           btn_getCode.setText("Lấy mã");
-                           btn_getCode.enableInputMethods(true);
-                       }
-                   } catch (InterruptedException ex) {
-                       Logger.getLogger(FormForgotPassword.class.getName()).log(Level.SEVERE, null, ex);
-                   }
-               }
-           //    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-           }
- });thread.start();
- 
-    // Step3: Send mail
-    Transport transport = getMailSession.getTransport("smtp");
- 
-    // Thay your_gmail thành gmail của bạn, thay your_password thành mật khẩu gmail của bạn
-    transport.connect("smtp.gmail.com", "lavantho2k2@gmail.com", "lavantho0508"); 
-    transport.sendMessage(mailMessage, mailMessage.getAllRecipients());
-    transport.close();
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -139,22 +34,21 @@ public class FormForgotPassword extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txt_ma = new javax.swing.JTextField();
+        jTextField1 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txt_mail = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txt_code = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        txt_pass = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txt_repass = new javax.swing.JTextField();
+        jTextField5 = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
-        btn_getCode = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -175,36 +69,36 @@ public class FormForgotPassword extends javax.swing.JDialog {
         jLabel3.setForeground(new java.awt.Color(51, 51, 51));
         jLabel3.setText("Tên đăng nhập");
 
-        txt_ma.setBackground(new java.awt.Color(255, 204, 204));
-        txt_ma.setForeground(new java.awt.Color(240, 240, 240));
+        jTextField1.setBackground(new java.awt.Color(255, 204, 204));
+        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(51, 51, 51));
         jLabel4.setText("Email đăng ký");
 
-        txt_mail.setBackground(new java.awt.Color(255, 204, 204));
-        txt_mail.setForeground(new java.awt.Color(240, 240, 240));
+        jTextField2.setBackground(new java.awt.Color(255, 204, 204));
+        jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(51, 51, 51));
         jLabel5.setText("Mã xác nhận");
 
-        txt_code.setBackground(new java.awt.Color(255, 204, 204));
-        txt_code.setForeground(new java.awt.Color(240, 240, 240));
+        jTextField3.setBackground(new java.awt.Color(255, 204, 204));
+        jTextField3.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(51, 51, 51));
         jLabel6.setText("Mật khẩu mới");
 
-        txt_pass.setBackground(new java.awt.Color(255, 204, 204));
-        txt_pass.setForeground(new java.awt.Color(240, 240, 240));
+        jTextField4.setBackground(new java.awt.Color(255, 204, 204));
+        jTextField4.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(51, 51, 51));
         jLabel7.setText("Xác nhận lại mật khẩu");
 
-        txt_repass.setBackground(new java.awt.Color(255, 204, 204));
-        txt_repass.setForeground(new java.awt.Color(240, 240, 240));
+        jTextField5.setBackground(new java.awt.Color(255, 204, 204));
+        jTextField5.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
         jPanel3.setBackground(new java.awt.Color(22, 51, 255));
 
@@ -212,11 +106,6 @@ public class FormForgotPassword extends javax.swing.JDialog {
         jLabel9.setForeground(new java.awt.Color(204, 204, 204));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Xác nhận");
-        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel9MouseClicked(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -249,26 +138,21 @@ public class FormForgotPassword extends javax.swing.JDialog {
 
         jPanel8.setBackground(new java.awt.Color(204, 204, 204));
 
-        btn_getCode.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        btn_getCode.setText("Lấy Mã");
-        btn_getCode.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_getCodeMouseClicked(evt);
-            }
-        });
+        jLabel14.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel14.setText("Lấy mã");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_getCode, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_getCode, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
         );
-
-        jLabel15.setForeground(new java.awt.Color(255, 0, 0));
 
         jLabel13.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel13.setText("x");
@@ -284,10 +168,10 @@ public class FormForgotPassword extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(52, 52, 52)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_repass, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextField5)
                     .addComponent(jLabel7)
-                    .addComponent(txt_pass, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField4)
                     .addComponent(jLabel6)
                     .addComponent(jLabel5)
                     .addComponent(jLabel4)
@@ -297,17 +181,13 @@ public class FormForgotPassword extends javax.swing.JDialog {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(txt_mail)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(txt_ma, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField1)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txt_code, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1))
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1)
+                    .addComponent(jTextField2))
                 .addContainerGap(58, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -324,27 +204,25 @@ public class FormForgotPassword extends javax.swing.JDialog {
                 .addGap(37, 37, 37)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txt_ma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txt_mail))
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_code, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txt_pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txt_repass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -386,57 +264,6 @@ public class FormForgotPassword extends javax.swing.JDialog {
     private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
         System.exit(0);
     }//GEN-LAST:event_jLabel13MouseClicked
-
-    private void btn_getCodeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_getCodeMouseClicked
- chon++;
-    if(checkMa()==false){
-    JOptionPane.showMessageDialog(rootPane, "Mã bạn vừa nhập không khớp");
-    return;
-}
-   if(checkEmailByMa()==false){
-    JOptionPane.showMessageDialog(rootPane,"Email bạn vừa nhập không khớp");
-    return;
-}
-    try {
-       
-        sendCode(txt_mail.getText());
-        JOptionPane.showMessageDialog(rootPane,"Mã xác nhận đã được gửi");
-    } catch (MessagingException ex) {
-        Logger.getLogger(FormForgotPassword.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (UnsupportedEncodingException ex) {
-        Logger.getLogger(FormForgotPassword.class.getName()).log(Level.SEVERE, null, ex);
-    
-}
-    
-    }//GEN-LAST:event_btn_getCodeMouseClicked
-
-    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
-    if(chon==0){
-        JOptionPane.showMessageDialog(rootPane,"Bạn chưa lấy mã");
-        return;
-    }
-        if(txt_code.getText().isBlank()||txt_ma.getText().isBlank()||txt_mail.getText().isBlank()||txt_pass.getText().isBlank()||txt_repass.getText().isBlank()){
-          JOptionPane.showMessageDialog(rootPane, "bạn điền thiếu thông tin , vui lòng điền lại");
-          return;
-      }
-      if(!txt_code.getText().equals(code)){
-          JOptionPane.showMessageDialog(rootPane,"mã xác nhận không khớp,vui lòng check lại email ! ");
-          return;
-      }
-      if(txt_pass.getText().length()>15){
-          JOptionPane.showMessageDialog(rootPane,"mật khẩu không được quá 15 ký tự");
-          return;
-      }
-      if(!txt_pass.getText().equals(txt_repass.getText())){
-          JOptionPane.showMessageDialog(rootPane,"Mật khẩu xác nhận không khớp,vui lòng nhập lại");
-          return;
-      }
-      if(qlnv.changePassWord(txt_ma.getText(), txt_pass.getText())>0){
-          JOptionPane.showMessageDialog(rootPane, "Đổi mật khẩu thành công");
-      }else{
-          JOptionPane.showMessageDialog(rootPane, "Đổi mật khẩu thất bại");
-      }
-    }//GEN-LAST:event_jLabel9MouseClicked
 
     /**
      * @param args the command line arguments
@@ -481,11 +308,10 @@ public class FormForgotPassword extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel btn_getCode;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -498,10 +324,10 @@ public class FormForgotPassword extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JTextField txt_code;
-    private javax.swing.JTextField txt_ma;
-    private javax.swing.JTextField txt_mail;
-    private javax.swing.JTextField txt_pass;
-    private javax.swing.JTextField txt_repass;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 }

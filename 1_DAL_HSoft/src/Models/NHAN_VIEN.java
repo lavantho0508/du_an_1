@@ -35,10 +35,6 @@ public class NHAN_VIEN {
         this.TRANGTHAI = TRANGTHAI;
     }
 
-    public NHAN_VIEN(String string, String string0, int aInt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     public String getMANV() {
         return MANV;
     }

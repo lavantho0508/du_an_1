@@ -104,4 +104,9 @@ public class Variant_values {
         this.TRANGTHAI = TRANGTHAI;
     }
 
+    @Override
+    public String toString() {
+        return "Variant_values{" + "ID_Product=" + ID_Product + ", ID_variant=" + ID_variant + ", ID_Options=" + ID_Options + ", ID_values=" + ID_values + ", Quantity=" + Quantity + ", Price=" + Price + ", Barcode=" + Barcode + ", Images=" + Images + ", TRANGTHAI=" + TRANGTHAI + '}';
+    }
+
 }
