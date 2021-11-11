@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>src/IServices/IVariant_ValuesService.java</url>
+            <bookmark id="1">
+                <name/>
+                <line>18</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/F:/Du_An_1/DuAn1_QuanLyBanMayTinhHSoft-main/1_DAL_HSoft/src/IServices/INHAN_VIEN_Service.java</file>
+            <file>file:/F:/Du_An_1/DuAn1_QuanLyBanMayTinhHSoft-main/1_DAL_HSoft/src/Sevices/Product_Variant_Service.java</file>
+            <file>file:/F:/Du_An_1/DuAn1_QuanLyBanMayTinhHSoft-main/1_DAL_HSoft/src/Sevices/Product_Service.java</file>
+            <file>file:/F:/Du_An_1/DuAn1_QuanLyBanMayTinhHSoft-main/1_DAL_HSoft/src/Helper/JdbcHelper.java</file>
+            <file>file:/F:/Du_An_1/DuAn1_QuanLyBanMayTinhHSoft-main/1_DAL_HSoft/src/Sevices/NHAN_VIEN_Service.java</file>
+            <file>file:/F:/Du_An_1/DuAn1_QuanLyBanMayTinhHSoft-main/1_DAL_HSoft/src/Sevices/Options_Service.java</file>
+            <file>file:/F:/Du_An_1/DuAn1_QuanLyBanMayTinhHSoft-main/1_DAL_HSoft/src/IServices/IOption_Service.java</file>
+            <file>file:/F:/Du_An_1/DuAn1_QuanLyBanMayTinhHSoft-main/1_DAL_HSoft/src/Models/NHAN_VIEN.java</file>
+            <file>file:/F:/Du_An_1/DuAn1_QuanLyBanMayTinhHSoft-main/1_DAL_HSoft/src/Sevices/Option_Values_Service.java</file>
+            <file>file:/F:/Du_An_1/DuAn1_QuanLyBanMayTinhHSoft-main/1_DAL_HSoft/src/IServices/IProduct_Service.java</file>
+            <file>file:/F:/Du_An_1/DuAn1_QuanLyBanMayTinhHSoft-main/1_DAL_HSoft/src/Helper/UtilityHelper.java</file>
+            <file>file:/F:/Du_An_1/DuAn1_QuanLyBanMayTinhHSoft-main/1_DAL_HSoft/src/Sevices/Product_Options_Service.java</file>
+        </group>
+    </open-files>
+</project-private>
